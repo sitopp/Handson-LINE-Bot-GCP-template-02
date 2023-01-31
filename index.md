@@ -18,19 +18,20 @@ https://zenn.dev/arahabica/books/d4373bd4401d6c/viewer/83e531
 - ChromeがインストールされたPC（Chromeのバージョンは最新にしていただくとトラブルを回避しやすいです）
 
 ### 事前準備
-- [GitHub アカウント](https://github.com/)作成
+- [GitHub アカウント](https://github.com/)
 - LINEアカウント作成 (普段つかっているLINEアプリのアカウント)
-- [LINE公式アカウント](https://developers.line.me/console/)※ ログインできるかどうかを確認ください
-- [Firebase アカウント](https://firebase.google.com/?hl=ja) 作成
-  - 会社アカウントでも大丈夫ですが、以下の手順で *プロジェクトを作成* する内容になってますので、適宜読み替えをお願いします。
+- [LINE公式アカウント](https://developers.line.me/console/)
+- [Firebase アカウント](https://firebase.google.com/?hl=ja) 
+- [Google Cloud アカウント](https://cloud.google.com/free) 
 - (推奨) [Google Chrome](https://www.google.com/intl/ja/chrome/gsem/download/) の最新版のインストール
 
 ### 使用するサービス・ツール
 - GitHub
 - LINE Messaging API / LIFF アプリ / LINE ログイン
-- Firebase - Google 
-  - Firebase hosting
+- Google Cloud 
   - Firestore
+- Firebase
+  - Firebase hosting
 
 ### 使用する言語
 - Nuxt.js
@@ -42,7 +43,7 @@ https://zenn.dev/arahabica/books/d4373bd4401d6c/viewer/83e531
 
 
 ### 注意事項
-若干、Google Cloudの課金が発生する可能性があります。それ以外は課金など発生しません。
+若干、Google Cloudの課金が発生する可能性があります。
 終わった後はリソース一式を削除するなど、無料範囲に収まるようにご留意ください。
 
 
