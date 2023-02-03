@@ -50,3 +50,22 @@ https://zenn.dev/arahabica/books/d4373bd4401d6c/viewer/83e531
 # 2.実装 
 
 ## LINE側の設定
+
+## GCP側の設定
+
+### GCS バケット作成
+
+### Cloud Shell起動
+
+### GCS バケット作成
+
+### Node.jsのインストール
+
+### Firebaseのプロジェクト作成
+
+#### FirebaseのCLIツールをインストール
+
+npm install -g firebase-tools
+firebase --version
+nodebrew use  v16.0.0
+
