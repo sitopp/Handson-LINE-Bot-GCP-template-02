@@ -223,6 +223,8 @@ backend/
 
 Backend/app.pyを書き換える
 
+Cloud Shell コンソールから以下を実行
+
 ```
 LIFF_CHANNEL_ID = '(LIFFを作ったLINEログインのチャネルID'
 CHANNEL_ACCESS_TOKEN = '(Messaging APIのチャネルアクセストークン)'
@@ -250,7 +252,7 @@ https://console.cloud.google.com/run?hl=ja
 Firebase/public/front/members_card.js 
 「FUNCTION_URL」と「liffId」に下記の値を入力
 
-FUNCTION_URL: cloud runのアプリのHosting URL+/front/ で更新する。
+FUNCTION_URL: cloud runのアプリのHosting URL 
 liffid: さっき作ったLINEログインのLIFF ID
 
 
