@@ -5,13 +5,9 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ### 謝辞
 
-
-このハンズオンは、河本さん作成の [LINE と AWS Lambda function URLs を活用してデジタル会員証を実現](https://aws.amazon.com/jp/builders-flash/202208/line-digital-membership-card/?awsf.filter-name=*all)の内容を、GCPのサービス群を使う内容に焼き直したものです。
-
-また、捧さんのハンズオン勉強会[「LIFF×AWSで会員証アプリを作ろう!」](https://zenn.dev/arahabica/books/d4373bd4401d6c/viewer/83e531)の内容も参考にさせていただきました。
-
-＞ 河本さん、捧さん 
-アドバイス＆ご快諾いただき、ありがとうございました。
+- このハンズオンは、河本さん作成の [LINE と AWS Lambda function URLs を活用してデジタル会員証を実現](https://aws.amazon.com/jp/builders-flash/202208/line-digital-membership-card/?awsf.filter-name=*all)の内容を、GCPのサービス群を使う内容に焼き直したものです。
+- 捧さんのハンズオン勉強会[「LIFF×AWSで会員証アプリを作ろう!」](https://zenn.dev/arahabica/books/d4373bd4401d6c/viewer/83e531)の内容も参考にさせていただきました。
+- AWSからGCPへのコードの焼き直しについては、ChatGPTにお世話になりました。
 
 ### 当日の持ち物
 
@@ -50,37 +46,95 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ## LINE側の設定
 
-## Firebase の設定
+[LINE Developers](https://developers.line.me/ja/services/messaging-api/) にアクセス
 
-プロジェクトとアプリの登録
-アプリ名：liff
-チュートリアルの通りにやっていく
-※SDKの構成はスルー
+「今すぐはじめよう」のボタンをクリック
+
+LINE BUSINESS ID画面が開いたら、「LINE アカウントでログイン」を選択し、いつも使っているLINEアカウントでログイン。
+パスワードを忘れた場合は、QRコードログインが便利。
+![image](https://user-images.githubusercontent.com/1670181/218750217-cd6a4366-e679-4368-acbb-8fb070471790.png)
+
+### プロバイダー選択
+
+#### プロバイダーを初めて作る場合
+
+新規プロバイダー作成」を選択しプロバイダー名を入力します。
+注 : LINE という文字は含められません。
+
+![image](https://user-images.githubusercontent.com/1670181/218750409-cd11f358-a34b-436d-8054-5737eb351cd6.png)
+
+#### 既にプロバイダーを作ってある場合
+
+利用するプロバイダーを選択します。
+
+![image](https://user-images.githubusercontent.com/1670181/218750552-60a393bb-dbdf-4e32-ac2a-00726948f192.png)
 
 
-## GCP側の設定
+
+
+### Messaging API チャネルの作成
+
+以下をメモっておく
+CHANNEL_ACCESS_TOKEN 
+
+
+### LINE ログインチャネルの作成
+
+### LIFFの作成
+
+以下をメモっておく
+LIFF_CHANNEL_ID
+LIFF ID
+
+
+### リッチメニューの作成
+
+
+## フロントエンドの構築
+
+### Cloud Shell でコードの Clone
+
+GCP のコンソールを開き、Cloud Shell を起動
+スクショ★
+
+
+git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git ★Todo
+
+cd LINE-Digital-MembersCard-on-GCP
+
+LINE関連の書き換え ★todo
+
+そのまま開いておく
 
 
 ### Firebase プロジェクト作成
 
+
 https://console.firebase.google.com/?hl=ja
+スクショ★
 
 プロジェクトを作成 > プロジェクト名入力欄をクリックして Handson-LINE-Bot-GCP-02 を選択
 「自身の取引、ビジネス、仕事、または職業のみを目的として Firebase を利用することを正式に認めます。」にチェック > 続行
 
 「Firebase の料金プランの確認 Blaze 従量制」 > プランを確認
 
+### Firebase アプリの登録
 
-### Cloud Shell を起動
+上に続き、
 
-git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git ★Todo
+アプリ名：liff
+チュートリアルの通りにやっていく
+※SDKの構成はスルー
 
-cd LINE-Digital-MembersCard-on-GCP
+### コード書き換え
 
-書き換え ★todo
+Cloud ShellのエディターでFirebase関連のコード書き換えする。
+スクショ★
 
+firebase.json　を編集
+Siteの行を追加する。
 
-### Firebaseのセットアップ
+### Firebase ビルド セットアップ
 
 cd LINE-Digital-MembersCard-on-GCP
 
@@ -106,10 +160,6 @@ Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Act
 What do you want to use as your public directory? から始まる質問は全て空エンター
 
 
-Cloud Shellのエディターを開く
-
-firebase.json を開きチュートリアルの通りに編集、Siteの行を追加する。
-
 firebase deploy
 あるいは firebase deploy --only hosting:handson-line-bot-gcp-xxxxx (チュートリアルの最後の指示通り）
 
@@ -118,9 +168,11 @@ firebase deploy
 
 LINE 400 Bad Requestが表示されるが、今の所はこれでOK。
 
-### LINE DevelopersのLIFFの設定
 
-エンドポイントURLを、Hosting URL+/front/ で更新する。
+
+### LINE Developers で LIFF のエンドポイントを編集
+
+FirebaseのURLを記入する
 
 LINEログインを「公開中」にする
 
@@ -131,7 +183,7 @@ MembersCardUserInfo テーブル
 https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ のやり方でJsonを払出して、Jsonファイルをダウンロードしておく
 
 
-## バックエンド
+## バックエンドの構築
 
 ### GCPプロジェクト作成
 
@@ -139,7 +191,7 @@ https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3
 
 Handson-LINE-Bot-GCP-02
 
-ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクト ID をコピー
+ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクト ID を参照、後で使う
 
 ### CloudRun の有効化
 
@@ -198,12 +250,15 @@ https://console.cloud.google.com/run?hl=ja
 Firebase/public/front/members_card.js 
 「FUNCTION_URL」と「liffId」に下記の値を入力
 
-FUNCTION_URL: cloud runのアプリのURL
+FUNCTION_URL: cloud runのアプリのHosting URL+/front/ で更新する。
 liffid: さっき作ったLINEログインのLIFF ID
+
 
 ターミナルで、
 cd ~/firebase
 firebase deploy
+
+
 
 ## LINEアプリから実行
 
