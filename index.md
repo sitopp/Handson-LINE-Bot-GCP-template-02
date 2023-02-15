@@ -36,7 +36,7 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ### 構成図
 
-<img width="799" alt="image" src="https://user-images.githubusercontent.com/1670181/219108116-1a42c37e-56da-49d5-8a0c-27007140d4bd.png">
+![image](https://user-images.githubusercontent.com/1670181/219129474-fcb80ca0-666f-4d4c-9ba5-9d26da2c1374.png)
 
 
 ### 注意事項
@@ -288,9 +288,8 @@ Please enter numeric choice or text value (must exactly match list item):  3
 Allow unauthenticated invocations to [backend] (y/N)? Y ここだけデフォと違う★
 ```
 
-    gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行。
     
-```
+    gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行。    
     
     
 - URLが発行されたらブラウザで実行してみる
@@ -307,11 +306,13 @@ https://console.cloud.google.com/run?hl=ja
 - エディターでファイルを開いて編集する。
 
   -  Firebase/public/front/members_card.js 
+    
     ```    
     const FUNCTION_URL = "https://xxxxxxxxxxxxxxxx"; ← cloud runのアプリのHosting URL 
     const liffId = "xxxxxxxxx-xxxxxxxxx"; ← LINEログインのLIFF ID
     ```
-- ターミナルで、フロントのNode.jsコードをFirebaseにデプロイしなおす。
+
+    - ターミナルで、フロントのNode.jsコードをFirebaseにデプロイしなおす。
 
     ```
     cd ~/handson/LINE-Digital-MembersCard-on-GCP/front
