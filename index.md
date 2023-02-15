@@ -117,38 +117,55 @@ cd LINE-Digital-MembersCard-on-GCP
 
 - あとでコマンド実行するのでそのまま開いておく
 
+### GCP プロジェクト作成
+
+- https://console.cloud.google.com/ 
+
+- ヘッダー部分のプロジェクト選択肢 > 新しいプロジェクト 
+
+- Handson-LINE-Bot-GCP-02 を作成
+
+- 左上のケバブ> ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクト ID を参照。後で使うのでメモっておく。
+
 
 ### Firebase プロジェクト作成
 
-https://console.firebase.google.com/?hl=ja
+- https://console.firebase.google.com/?hl=ja
 
+![image](https://user-images.githubusercontent.com/1670181/219113905-7b105ee5-4105-4beb-a3bd-0a4d3cace97b.png)
 
-プロジェクトを作成 > プロジェクト名入力欄をクリックして Handson-LINE-Bot-GCP-02 を選択
-「自身の取引、ビジネス、仕事、または職業のみを目的として Firebase を利用することを正式に認めます。」にチェック > 続行
+- プロジェクトを追加 > プロジェクト名入力欄をクリックして Handson-LINE-Bot-GCP-02 を選択
 
-「Firebase の料金プランの確認 Blaze 従量制」 > プランを確認
+- 「自身の取引、ビジネス、仕事、または職業のみを目的として Firebase を利用することを正式に認めます。」にチェック > 続行
+
+- 「Firebase の料金プランの確認 Blaze 従量制」 > プランを確認
 
 ### Firebase アプリの登録
 
-上に続き、
+- ウェブアプリのアイコンをクリック
+![image](https://user-images.githubusercontent.com/1670181/219115227-9b10f12a-e0ec-4187-8507-25cac5236bce.png)
 
-アプリ名：liff
-チュートリアルの通りにやっていく
-※SDKの構成はスルー
+- ①アプリの登録
 
-### コード書き換え
+- アプリのニックネーム：liff
+- FirebaseHostingにチェック
+- 好きな名前.web.app
 
-ローカルにコードをクローンする。
+②Firebase SDK の追加
 
-git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git
 
-普段使っているエディターでFirebase関連のコード書き換えする。
+- 普段使っているエディターで、以下のファイルを開く
+```
+LINE-Digital-MembersCard-on-GCP > front > public > front > index.html
+```
 
-index.html
+- 「<script> タグを使用する」を選択すると<script>タグが表示される
+- index.htmlの<body>タグの最後に貼り付ける。 サンプルコードの場合、L.82〜L.100に上書きコピペ。
+
 ![image](https://user-images.githubusercontent.com/1670181/219083123-682b8bba-19bf-48f3-acc7-fbe55eabda7b.png)
 
-SDKの設定 >. CDN > <scriipt>〜から始まる部分をコピーして、<body>タグの最後に貼り付ける
-
+※もしコピーし忘れた場合は、後で、SDKの設定 >. CDN でも閲覧できる。
+    
 <1---firebase.json　を編集し、Siteの行を追加する。--->
 
 
@@ -211,13 +228,6 @@ https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3
 
 ## バックエンドの構築
 
-### GCPプロジェクト作成
-
-ヘッダーのプロジェクト選択肢 > 新しいプロジェクト > 
-
-Handson-LINE-Bot-GCP-02
-
-ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクト ID を参照、後で使う
 
 ### CloudRun の有効化
 
