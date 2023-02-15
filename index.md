@@ -134,9 +134,13 @@ Cloud ShellのエディターでFirebase関連のコード書き換えする。
 firebase.json　を編集
 Siteの行を追加する。
 
+index.htmlに scriptタグをコピペする
+
+
 ### Firebase ビルド セットアップ
 
 cd LINE-Digital-MembersCard-on-GCP
+cd front
 
 （以下、容量不足のエラーが出たら適宜削除）
 
