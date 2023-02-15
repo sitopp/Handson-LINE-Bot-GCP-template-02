@@ -29,6 +29,7 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 - Firebase ( Firebase Hosting  / Firestore )
 
 ### 使用する言語
+
 - Node.js
 - Python
 
@@ -92,10 +93,9 @@ LIFF ID
 
 ## フロントエンドの構築
 
-### Cloud Shell でコードの Clone
+### ローカルで編集
 
-GCP のコンソールを開き、Cloud Shell を起動
-スクショ★
+VSCodeなど普段
 
 
 git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git ★Todo
@@ -128,13 +128,17 @@ https://console.firebase.google.com/?hl=ja
 
 ### コード書き換え
 
-Cloud ShellのエディターでFirebase関連のコード書き換えする。
-スクショ★
+git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git
 
-firebase.json　を編集
-Siteの行を追加する。
+エディターでFirebase関連のコード書き換えする。
 
-index.htmlに scriptタグをコピペする
+index.html
+![image](https://user-images.githubusercontent.com/1670181/219083123-682b8bba-19bf-48f3-acc7-fbe55eabda7b.png)
+
+SDKの設定 >. CDN > <scriipt>〜から始まる部分をコピーして、<body>タグの最後に貼り付ける
+
+<1---firebase.json　を編集し、Siteの行を追加する。--->
+
 
 
 ### Firebase ビルド セットアップ
@@ -142,34 +146,44 @@ index.htmlに scriptタグをコピペする
 cd LINE-Digital-MembersCard-on-GCP
 cd front
 
-（以下、容量不足のエラーが出たら適宜削除）
+（以下、容量不足のエラーが出たら、ハンズオン1回目のファイルを削除するなど不要ファイルを削除するか、ローカルで実行）
 
+```
+npm install
 npm install firebase
 npm install -g firebase-tools
+npm install firebase-admin
 firebase login:ci --no-localhost
+```
 
 - Yes, I just ran this command
 - Yes, This is my session ID
 - 表示されたトークンをコピーしてCloud Shellに貼り付け
 
-
+    
+```
 firebase init
+```
 
-上下カーソルで
-Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
-をアクティブにし、スペースを押下すると選択状態になる
-↓
-エンター
-↓
-What do you want to use as your public directory? から始まる質問は全て空エンター
+- 上下カーソルで 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　をアクティブにし、スペースを押下すると選択状態になるので、エンター
+- Please select an option: 上下カーソルで「Use an existing project」を選んでエンター
+- Select a default Firebase project for this directory ：今作ったFirebaseプロジェクトを指定してエンター    
+- What do you want to use as your public directory? public から始まる質問は全てデフォルト値を使うので、空エンター
 
-
+```
 firebase deploy
-あるいは firebase deploy --only hosting:handson-line-bot-gcp-xxxxx (チュートリアルの最後の指示通り）
+もしエラーが出たら、npm install
+```
 
-表示された Hosting URLをブラウザに貼り付け、末尾に/frontをつけて実行する
-例）https://handson-line-bot-gcp-02-718.web.app/front/
+表示された Hosting URLをブラウザに貼り付けて実行する
 
+例）https://handson-line-bot-gcp-02-718.web.app/
+以下のメッセージが表示される。
+![image](https://user-images.githubusercontent.com/1670181/219082212-0a64ec6c-40c2-42d7-9f0f-2871767795d2.png)
+
+    
+URLの末尾に/front/をつけて実行する。
+https://handson-line-bot-gcp-02-718.web.app/front/
 LINE 400 Bad Requestが表示されるが、今の所はこれでOK。
 
 
