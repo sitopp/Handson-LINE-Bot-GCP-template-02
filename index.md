@@ -27,15 +27,16 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 - LINE ( Messaging API / LIFF )
 - Google Cloud ( Cloud Run / Cloud Shell )
 - Firebase ( Firebase Hosting  / Firestore )
+- 使い慣れたエディタ (VSCodeなど)
+- ターミナルクライアント (Mac OSのターミナルなど)
 
 ### 使用する言語
-
 - Node.js
 - Python
 
 ### 構成図
 
-![kouseizu](https://user-images.githubusercontent.com/1670181/215822528-2a0ccb67-6afb-4eb3-8d45-148b3505852c.png)
+<img width="799" alt="image" src="https://user-images.githubusercontent.com/1670181/219108116-1a42c37e-56da-49d5-8a0c-27007140d4bd.png">
 
 
 ### 注意事項
@@ -47,71 +48,80 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ## LINE側の設定
 
-[LINE Developers](https://developers.line.me/ja/services/messaging-api/) にアクセス
+[LINE Developers](https://developers.line.me/ja/services/messaging-api/) にアクセスし「今すぐはじめよう」のボタンをクリック
 
-「今すぐはじめよう」のボタンをクリック
+![image](https://user-images.githubusercontent.com/1670181/219110053-d1af5ce9-e85e-4b5c-9765-2625a3a6bccc.png)
 
-LINE BUSINESS ID画面が開いたら、「LINE アカウントでログイン」を選択し、いつも使っているLINEアカウントでログイン。
-パスワードを忘れた場合は、QRコードログインが便利。
-![image](https://user-images.githubusercontent.com/1670181/218750217-cd6a4366-e679-4368-acbb-8fb070471790.png)
+![image](https://user-images.githubusercontent.com/1670181/219110127-2f847adc-8528-4e48-b0f2-27a247aa5593.png)
 
-### プロバイダー選択
+![image](https://user-images.githubusercontent.com/1670181/219110261-5538a061-af74-46f3-8db9-7b1efa550f63.png)
 
-#### プロバイダーを初めて作る場合
+![image](https://user-images.githubusercontent.com/1670181/219110341-8f3eca35-114f-4a8d-8893-6ac7e5f5b764.png)
 
-新規プロバイダー作成」を選択しプロバイダー名を入力します。
-注 : LINE という文字は含められません。
-
-![image](https://user-images.githubusercontent.com/1670181/218750409-cd11f358-a34b-436d-8054-5737eb351cd6.png)
-
-#### 既にプロバイダーを作ってある場合
-
-利用するプロバイダーを選択します。
-
-![image](https://user-images.githubusercontent.com/1670181/218750552-60a393bb-dbdf-4e32-ac2a-00726948f192.png)
+![image](https://user-images.githubusercontent.com/1670181/219110380-02344710-e761-4c5b-bed2-30d3e8e9aa3c.png)
 
 
 
+![image](https://user-images.githubusercontent.com/1670181/219110416-75462d1d-4345-4360-9276-9656f0b9dc8e.png)
 
-### Messaging API チャネルの作成
+![image](https://user-images.githubusercontent.com/1670181/219110443-21b0e7ea-3332-453d-a823-c44ff83aed93.png)
 
-以下をメモっておく
-CHANNEL_ACCESS_TOKEN 
 
+
+![image](https://user-images.githubusercontent.com/1670181/219110479-c435a891-6560-4126-a9f9-2d95f46c734b.png)
 
 ### LINE ログインチャネルの作成
 
-### LIFFの作成
+![image](https://user-images.githubusercontent.com/1670181/219110764-8d3680a1-20b7-41a0-bb0e-b85d68f95d5b.png)
 
-以下をメモっておく
-LIFF_CHANNEL_ID
-LIFF ID
+![image](https://user-images.githubusercontent.com/1670181/219111018-cbc3db27-d1d6-4daf-8c84-975b086eecfa.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219111080-cd44d57b-f651-47dc-aab5-d3405ea93b08.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219111115-65fc2f5b-84fc-48d5-84e2-bd6a84bdc706.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219111151-63629bbe-2cb0-4975-a99b-204f592a2b58.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219111183-e6d0fe18-532c-4b9d-8b7f-b028e1c5c8f9.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219111227-08a959a3-3125-4bb8-9572-c19a94e10fba.png)
+
+LIFF が作成できました。
+
+後ほど使用するので、「LIFF ID」と「LIFF URL」をメモしましょう。
+
+![image](https://user-images.githubusercontent.com/1670181/219111359-ddf585ae-43c6-4ced-9385-c222bc29764a.png)
 
 
 ### リッチメニューの作成
+
+![image](https://user-images.githubusercontent.com/1670181/219112021-a837cb2a-83ac-4bd3-a4bf-6d49dbfd5ea8.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219112067-b4b94407-8716-48e5-9a21-37807641fba7.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219112113-59345e81-8cec-4424-8732-a52509f7ef69.png)
+
+![image](https://user-images.githubusercontent.com/1670181/219112345-e16c80ee-76a3-45d0-933b-e73b0b887006.png)
 
 
 ## フロントエンドの構築
 
 ### ローカルで編集
 
-VSCodeなど普段
+ターミナルを開き、以下を実行
 
-
-git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git ★Todo
-
+```
+git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git 
 cd LINE-Digital-MembersCard-on-GCP
+```
 
-LINE関連の書き換え ★todo
-
-そのまま開いておく
+- あとでコマンド実行するのでそのまま開いておく
 
 
 ### Firebase プロジェクト作成
 
-
 https://console.firebase.google.com/?hl=ja
-スクショ★
+
 
 プロジェクトを作成 > プロジェクト名入力欄をクリックして Handson-LINE-Bot-GCP-02 を選択
 「自身の取引、ビジネス、仕事、または職業のみを目的として Firebase を利用することを正式に認めます。」にチェック > 続行
@@ -128,9 +138,11 @@ https://console.firebase.google.com/?hl=ja
 
 ### コード書き換え
 
+ローカルにコードをクローンする。
+
 git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git
 
-エディターでFirebase関連のコード書き換えする。
+普段使っているエディターでFirebase関連のコード書き換えする。
 
 index.html
 ![image](https://user-images.githubusercontent.com/1670181/219083123-682b8bba-19bf-48f3-acc7-fbe55eabda7b.png)
@@ -140,13 +152,9 @@ SDKの設定 >. CDN > <scriipt>〜から始まる部分をコピーして、<bod
 <1---firebase.json　を編集し、Siteの行を追加する。--->
 
 
-
 ### Firebase ビルド セットアップ
 
-cd LINE-Digital-MembersCard-on-GCP
-cd front
-
-（以下、容量不足のエラーが出たら、ハンズオン1回目のファイルを削除するなど不要ファイルを削除するか、ローカルで実行）
+cd LINE-Digital-MembersCard-on-GCP/front
 
 ```
 npm install
