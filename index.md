@@ -242,42 +242,29 @@ Firebaseコンソール https://console.firebase.google.com/
     
 ### Firebase Admin SDKを取得
 
-    参考）https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ のやり方でJsonを払出して、Jsonファイルをダウンロードしておく
-https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ のやり方でJsonを払出して、Jsonファイルをダウンロードしておく
+- Firebase コンソール画面左上の「プロジェクトの概要」の右横の歯車アイコンをクリックし、「プロジェクトの設定」を選択
+    - 全般 / Cloud Messaging...の並びにある、「サービスアカウント」を選択
+    - そして下の方にある新しい秘密鍵を生成のボタンをクリックし、jsonファイルをダウンロードします。
+    
+    ![image](https://user-images.githubusercontent.com/1670181/219122453-b98b6124-59c1-4ec7-81cc-4f77d817be7c.png)
+    
+    
+    参考）https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ の 「Firebase Admin SDKを取得する」
 
 
 ## バックエンドの構築
 
-
 ### CloudRun の有効化
 
-コンソールでやる
+GCP のWebコンソールで開き、有効化
+
+### Python コードの書き換え
 
 
-### Cloud Shell起動
+- backend/content/key.json 
+    Firebase Admin SDK鍵をエディタで開き、Ctrl+Aでコピーして、backend/content/key.json に上書きペースト
 
-gcloud config set project プロジェクトID
-
-
-gcloud init
-1 -> 自分のメールアドレス設定 -> handon-line-bot-gcp-02〜の番号を入力。多分1
-
-Do you want to configure a default Compute Region and Zone? (Y/n)?  Y
-「32 asia-northeast1-b」を使いたいので、32と入力
-
-
-gcloud config set project PROJECT_ID
-PROJECT_ID は、このクイックスタートで作成したプロジェクトの名前に置き換えます。
-
-
-Cloud Shellに backend/ 以下のコード一式をアップロードする
-
-
-backend/
-    content/ フォルダを作り、FirestoreのJsonをアップロードして、名前を key.jsonに変更する
-
-
-Backend/app.pyを書き換える
+- backend/app.pyを書き換える
 
 Cloud Shell コンソールから以下を実行
 
