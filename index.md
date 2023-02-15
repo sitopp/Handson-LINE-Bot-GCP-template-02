@@ -240,7 +240,7 @@ Firebaseコンソール https://console.firebase.google.com/
     - ドキュメントID：自動ID
     - フィールドは入力せずに、保存
     
-### Firebase Admin SDKを取得
+### Firebase Admin SDKのクレデンシャルを取得
 
 - Firebase コンソール画面左上の「プロジェクトの概要」の右横の歯車アイコンをクリックし、「プロジェクトの設定」を選択
     - 全般 / Cloud Messaging...の並びにある、「サービスアカウント」を選択
@@ -260,55 +260,67 @@ GCP のWebコンソールで開き、有効化
 
 ### Python コードの書き換え
 
-
+ローカルでエディタを使う。
+先ほどGit Cloneしたファイルを開いて編集する。
+    
 - backend/content/key.json 
-    Firebase Admin SDK鍵をエディタで開き、Ctrl+Aでコピーして、backend/content/key.json に上書きペースト
+    上で取得した「Firebase Admin SDKのクレデンシャル」をエディタで開き、Ctrl+Aで全文コピーして、backend/content/key.json に上書きペースト
 
-- backend/app.pyを書き換える
-
-Cloud Shell コンソールから以下を実行
+- backend/main.py 
+    20〜21行目を、LINEの情報で上書き
 
 ```
-LIFF_CHANNEL_ID = '(LIFFを作ったLINEログインのチャネルID'
-CHANNEL_ACCESS_TOKEN = '(Messaging APIのチャネルアクセストークン)'
+LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF チャネルIDで書き換え
+CHANNEL_ACCESS_TOKEN = 'xxxxxxxxxx' ← Messaging APIのチャネルアクセストークンで書き換え
 ```
 
+    
+
+    ローカルでコンソールを使う。
+
+
+```
 gcloud run deploy
 Source code location (/home/sito989/backend): 空エンター
 Service name (backend): 空エンター
 Please enter numeric choice or text value (must exactly match list item):  3
 （[3] asia-northeast1）
 Allow unauthenticated invocations to [backend] (y/N)? Y ここだけデフォと違う★
+```
 
-URLが発行されたらブラウザで実行してみる
-https://backend-t6innaw72a-an.a.run.app
-Service Unavailable
-と表示される。
+    gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行。
+    
+```
+    
+    
+- URLが発行されたらブラウザで実行してみる
+- 例) https://backend-t6innaw72a-an.a.run.app
+- Service Unavailableと表示されるがOK。
+    - このURLは後で使うのでメモっておく。
 
-Cloud Runのダッシュボードを開き、一覧の中に作成したアプリが表示されていることを確認
+- GCPのCloud Runのダッシュボードを開き、一覧の中に作成したアプリが表示されていることを確認
 https://console.cloud.google.com/run?hl=ja
 
 
 ## フロントエンドのコード書き換え、デプロイ
 
-エディターで、
-Firebase/public/front/members_card.js 
-「FUNCTION_URL」と「liffId」に下記の値を入力
+- エディターでファイルを開いて編集する。
 
-FUNCTION_URL: cloud runのアプリのHosting URL 
-liffid: さっき作ったLINEログインのLIFF ID
+  -  Firebase/public/front/members_card.js 
+    ```    
+    const FUNCTION_URL = "https://xxxxxxxxxxxxxxxx"; ← cloud runのアプリのHosting URL 
+    const liffId = "xxxxxxxxx-xxxxxxxxx"; ← LINEログインのLIFF ID
+    ```
+- ターミナルで、フロントのNode.jsコードをFirebaseにデプロイしなおす。
 
+    ```
+    cd ~/handson/LINE-Digital-MembersCard-on-GCP/front
+    firebase deploy
+    ```
 
-ターミナルで、
-cd ~/firebase
-firebase deploy
-
-
-
-## LINEアプリから実行
+## LINEアプリで実行
 
 画面が表示されたらOK!
-
 
 
 
