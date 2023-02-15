@@ -111,8 +111,10 @@ LIFF が作成できました。
 ターミナルを開き、以下を実行
 
 ```
+cd 
+mkdir handson
+cd handson
 git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git 
-cd LINE-Digital-MembersCard-on-GCP
 ```
 
 - あとでコマンド実行するのでそのまま開いておく
@@ -168,23 +170,28 @@ LINE-Digital-MembersCard-on-GCP > front > public > front > index.html
     
 <1---firebase.json　を編集し、Siteの行を追加する。--->
 
+- ③ Firebase CLI のインストール
 
-### Firebase ビルド セットアップ
-
-cd LINE-Digital-MembersCard-on-GCP/front
+- ターミナルに戻る。
 
 ```
+cd LINE-Digital-MembersCard-on-GCP/front
 npm install
 npm install firebase
 npm install -g firebase-tools
 npm install firebase-admin
+```
+    
+- ④Firebase Hosting へのデプロイ
+
+```
 firebase login:ci --no-localhost
 ```
-
+URLが表示されるので、コピーしてブラウザで開く。質問が表示されるので答えていく。
 - Yes, I just ran this command
 - Yes, This is my session ID
-- 表示されたトークンをコピーしてCloud Shellに貼り付け
-
+- 表示されたトークンをコピー。
+- ターミナルに戻り、トークンを貼り付けてエンター
     
 ```
 firebase init
@@ -196,17 +203,19 @@ firebase init
 - What do you want to use as your public directory? public から始まる質問は全てデフォルト値を使うので、空エンター
 
 ```
-firebase deploy
-もしエラーが出たら、npm install
+firebase.jsonに「Site」行をコピーする
+![image](https://user-images.githubusercontent.com/1670181/219119562-8dc1ce0e-ac81-4d84-8ac3-a3bac9b24283.png)
+
+- firebase deploy
+- もしエラーが出たら、npm install
 ```
 
-表示された Hosting URLをブラウザに貼り付けて実行する
+デプロイが成功すると、 Hosting URLが表示されるので、ブラウザに貼り付けて実行する
 
 例）https://handson-line-bot-gcp-02-718.web.app/
 以下のメッセージが表示される。
 ![image](https://user-images.githubusercontent.com/1670181/219082212-0a64ec6c-40c2-42d7-9f0f-2871767795d2.png)
 
-    
 URLの末尾に/front/をつけて実行する。
 https://handson-line-bot-gcp-02-718.web.app/front/
 LINE 400 Bad Requestが表示されるが、今の所はこれでOK。
@@ -215,14 +224,25 @@ LINE 400 Bad Requestが表示されるが、今の所はこれでOK。
 
 ### LINE Developers で LIFF のエンドポイントを編集
 
-FirebaseのURLを記入する
+LINE 側セットアップで行った、LINE ログインチャネルの LIFF に戻り、LIFF の「エンドポイント URL」にFirebaseへのHosting URL+/front/のURLを入力し、更新します。
+    
+![image](https://user-images.githubusercontent.com/1670181/219120341-26d55fe3-564e-451a-aa97-84f7906224f9.png)
 
-LINEログインを「公開中」にする
-
+![image](https://user-images.githubusercontent.com/1670181/219120395-c4fc27d8-8025-4ba5-aebb-ee29005bdd4e.png)
 
 ### Firestoreの作成
 
-MembersCardUserInfo テーブル
+Firebaseコンソール https://console.firebase.google.com/
+    -  Handson-LINE-Bot-GCP-02 を選択
+    - 左ペインの「構築」>「Firestore Database」を選択
+    - 「+コレクションを開始」
+    - コレクションID：「MembersCardUserInfo」
+    - ドキュメントID：自動ID
+    - フィールドは入力せずに、保存
+    
+### Firebase Admin SDKを取得
+
+    参考）https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ のやり方でJsonを払出して、Jsonファイルをダウンロードしておく
 https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ のやり方でJsonを払出して、Jsonファイルをダウンロードしておく
 
 
