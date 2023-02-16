@@ -69,13 +69,28 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ![image](https://user-images.githubusercontent.com/1670181/219110443-21b0e7ea-3332-453d-a823-c44ff83aed93.png)
 
+※以下はスマホのLINEアプリで友達追加したところ
+<img src="https://user-images.githubusercontent.com/1670181/219229370-979c9d5c-61e2-42d5-a11e-9139034ca86f.png" width=300>
 
 
 ![image](https://user-images.githubusercontent.com/1670181/219110479-c435a891-6560-4126-a9f9-2d95f46c734b.png)
 
 ### LINE ログインチャネルの作成
 
-![image](https://user-images.githubusercontent.com/1670181/219110764-8d3680a1-20b7-41a0-bb0e-b85d68f95d5b.png)
+次に、デジタル会員証を表示できるよう、LINE ログインチャネルと LIFF を作成していきましょう。
+
+LINE Front-end Framework (LIFF) は、LINE が提供するウェブアプリのプラットフォームです。LINE ミニアプリにも関連する技術でもあります。詳細は下記の URL 先をご覧ください。
+
+- https://developers.line.biz/ja/docs/liff/overview/
+- https://www.youtube.com/watch?v=QD_M52ATbb8
+
+
+LINE Developerの「DEV」プロバイダーのチャネル一覧で、「新規チャネル作成」をクリックします。
+
+<img src="https://user-images.githubusercontent.com/1670181/219230853-49098fd5-518f-4ef3-9cd8-c7bb584a9dce.png" width=500>
+
+
+![image](https://user-images.githubusercontent.com/1670181/219230549-092c6a85-64b5-41d0-8787-fee7f81e8d47.png)
 
 ![image](https://user-images.githubusercontent.com/1670181/219111018-cbc3db27-d1d6-4daf-8c84-975b086eecfa.png)
 
