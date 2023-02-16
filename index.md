@@ -254,7 +254,7 @@ $ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     - エディタを開く
     
     ```
-    /front/firebase/jsonfirebase.json
+    /front/firebase.json
     ```
     
     を編集し、「Site」行をペーストする
