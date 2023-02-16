@@ -113,6 +113,9 @@ LINE Developerの「DEV」プロバイダーのチャネル一覧で、「新規
 
 ![image](https://user-images.githubusercontent.com/1670181/219111183-e6d0fe18-532c-4b9d-8b7f-b028e1c5c8f9.png)
 
+
+- エンドポイントURLに入力するものがまだ無いので、「https://example.com」と入力しておきましょう
+
 ![image](https://user-images.githubusercontent.com/1670181/219111227-08a959a3-3125-4bb8-9572-c19a94e10fba.png)
 
 LIFF が作成できました。
@@ -140,10 +143,10 @@ LIFF が作成できました。
 ターミナルを開き、以下を実行
 
 ```
-cd 
+cd (任意のディレクトリに移動)
 mkdir handson
 cd handson
-git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git 
+git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 ```
 
 - あとでコマンド実行するのでそのまま開いておく
@@ -154,18 +157,18 @@ git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git
 
 - ヘッダー部分のプロジェクト選択肢 > 新しいプロジェクト 
 
-- Handson-LINE-Bot-GCP-02 を作成
+- プロジェクト名： Handson-LINE-Bot-GCP-02 を作成
 
-- 左上のケバブ> ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクト ID を参照。後で使うのでメモっておく。
+- 左上のケバブ じゃなくて ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクトを選択 > プロジェクト ID を参照し、後で使うのでメモっておく。
 
 
 ### Firebase プロジェクト作成
 
 - https://console.firebase.google.com/?hl=ja
 
-![image](https://user-images.githubusercontent.com/1670181/219113905-7b105ee5-4105-4beb-a3bd-0a4d3cace97b.png)
+<img src="https://user-images.githubusercontent.com/1670181/219256747-7f6dd3ae-d364-4273-892e-3c6c4d5f8a0b.png" width=500>
 
-- プロジェクトを追加 > プロジェクト名入力欄をクリックして Handson-LINE-Bot-GCP-02 を選択
+- プロジェクトを追加 > プロジェクト名入力欄をクリックして 「Handson-LINE-Bot-GCP-02」 を選択
 
 - 「自身の取引、ビジネス、仕事、または職業のみを目的として Firebase を利用することを正式に認めます。」にチェック > 続行
 
@@ -173,75 +176,105 @@ git clone git@github.com:sitopp/LINE-Digital-MembersCard-on-GCP.git
 
 ### Firebase アプリの登録
 
+- Firebaseのグランドメニューから 「Handson-LINE-Bot-GCP-02」 を選択
+- 「 アプリを追加 」をクリック
 - ウェブアプリのアイコンをクリック
+
 ![image](https://user-images.githubusercontent.com/1670181/219115227-9b10f12a-e0ec-4187-8507-25cac5236bce.png)
 
-- ①アプリの登録
+#### ① アプリの登録
 
 - アプリのニックネーム：liff
-- FirebaseHostingにチェック
-- 好きな名前.web.app
+- 「このアプリの Firebase Hosting も設定します」 にチェック
+- 「liff-dev-(自分のあだ名など).web.app」 記入
+    - 世界で一意になる必要があります。重複してるとエラーが出て先へすすみません。
+- アプリを登録
 
-②Firebase SDK の追加
+#### ② Firebase SDK の追加
 
-
+- 「<script> タグを使用する」を選択
+    - ドバッと<script> タグが表示される
 - 普段使っているエディターで、以下のファイルを開く
-```
-LINE-Digital-MembersCard-on-GCP > front > public > front > index.html
-```
+    ```
+    先ほどgit cloneした、
+    handson/LINE-Digital-MembersCard-on-GCP/front/public/front/index.html
+    ```
+    - <script> タグを、index.htmlの<body>タグの最後に貼り付ける。 つまりサンプルコードの L.82〜L.100に上書きコピペする。
 
-- 「<script> タグを使用する」を選択すると<script>タグが表示される
-- index.htmlの<body>タグの最後に貼り付ける。 サンプルコードの場合、L.82〜L.100に上書きコピペ。
-
-![image](https://user-images.githubusercontent.com/1670181/219083123-682b8bba-19bf-48f3-acc7-fbe55eabda7b.png)
-
-※もしコピーし忘れた場合は、後で、SDKの設定 >. CDN でも閲覧できる。
+   ![image](https://user-images.githubusercontent.com/1670181/219258968-8997cf13-7ee0-42c9-a4f0-8862fec9768d.png)
     
-<1---firebase.json　を編集し、Siteの行を追加する。--->
-
-- ③ Firebase CLI のインストール
-
-- ターミナルに戻る。
-
-```
-cd LINE-Digital-MembersCard-on-GCP/front
-npm install
-npm install firebase
-npm install -g firebase-tools
-npm install firebase-admin
-```
+    ※ もし<script>タグをコピーし忘れた場合は、後で SDKの設定 > CDN でも閲覧できる。
     
-- ④Firebase Hosting へのデプロイ
 
-```
-firebase login:ci --no-localhost
-```
-URLが表示されるので、コピーしてブラウザで開く。質問が表示されるので答えていく。
-- Yes, I just ran this command
-- Yes, This is my session ID
-- 表示されたトークンをコピー。
-- ターミナルに戻り、トークンを貼り付けてエンター
+#### ③ Firebase CLI のインストール
+
+- ターミナルに戻り、以下のコマンドを実行する
+
+    ```
+    pwd ←現在位置を確認。~/handsonディレクトリにいればOK。居なければ cd ~/handson などで移動
+    cd LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front
+    npm install
+    npm install firebase
+    npm install -g firebase-tools
+    npm install firebase-admin
+    ```
     
-```
-firebase init
-```
+#### ④ Firebase Hosting へのデプロイ
 
-- 上下カーソルで 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　をアクティブにし、スペースを押下すると選択状態になるので、エンター
-- Please select an option: 上下カーソルで「Use an existing project」を選んでエンター
-- Select a default Firebase project for this directory ：今作ったFirebaseプロジェクトを指定してエンター    
-- What do you want to use as your public directory? public から始まる質問は全てデフォルト値を使うので、空エンター
+    ターミナルから以下を実行（ガイダンスより、少しコマンドを変えています）
+    ```
+    firebase login:ci --no-localhost
+    ```
+    ![image](https://user-images.githubusercontent.com/1670181/219260071-0e2af9c3-7777-4ae7-abfa-1eefb538c35a.png)
+    URLが表示されるので、コピーしてブラウザで開く。
+    - Googleアカウントで認証する
+    - 質問が表示されるので答えていく。
+        - 「Yes, I just ran this command」クリック
+        - 表示されたセッションIDと、ターミナルに表示されたものが同じことを確認してから、「Yes, This is my session ID」クリック
+        - authorization codeが表示されるので「copy」をクリック
+    - ターミナルに戻り、authorization codeを貼り付けてエンター
+    
+    
+    続けて、ターミナルから以下を実行
+    ```
+    $ firebase init
+    ```
+    - 上下カーソルで以下の行にあわせてアクティブにする
+        - 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　
+    - スペースを押下することにより「○」→「◉」になる。（下図参照）
+    <img width="889" alt="image" src="[https://user-images.githubusercontent.com/1670181/219260733-9fafa3e7-b585-479d-a9b9-770022864f41.png">
+    - エンター
+    - Please select an option: 上下カーソルで「Use an existing project」を選んでエンター
+    - Select a default Firebase project for this directory ：今作ったFirebaseプロジェクトを指定してエンター    
+    - What do you want to use as your public directory? public から始まる質問は全てデフォルト値を使うので、空エンター
 
-```
-firebase.jsonに「Site」行をコピーする
-![image](https://user-images.githubusercontent.com/1670181/219119562-8dc1ce0e-ac81-4d84-8ac3-a3bac9b24283.png)
+    - 「firebase.json でサイトを指定する」の 「site」行の右横のコピーアイコンをクリックする
+    ![image](https://user-images.githubusercontent.com/1670181/219261682-0e859620-bee4-48c4-bec4-256b035c0b44.png)
 
-- firebase deploy
-- もしエラーが出たら、npm install
-```
+    - エディタを開く
+    ```
+    /front/firebase/jsonfirebase.json
+    ```
+    を編集し、「Site」行をペーストする
+    ![image](https://user-images.githubusercontent.com/1670181/219261993-9f01f04c-4d9f-40dc-a953-a4e2261d1ebf.png)
 
-デプロイが成功すると、 Hosting URLが表示されるので、ブラウザに貼り付けて実行する
+    - 「準備ができたらウェブアプリをデプロイ」の下に表示されたデプロイコマンド「firebase deploy --only hosting:xxxxx」をコピー
+    ![image](https://user-images.githubusercontent.com/1670181/219262086-49545f0e-bd10-4f02-9b51-e91fe4b22423.png)
+    
+    コンソールを開く
+    
+    ```
+    $ firebase deploy --only hosting:xxxxx
+    ```
+    を実行
+        - さいあく、firebase deploy でもOK
+        - もしエラーが出たら、npm install をやり直す
 
-例）https://handson-line-bot-gcp-02-718.web.app/
+    
+    - デプロイが成功すると、 Hosting URLが表示される
+    ![image](https://user-images.githubusercontent.com/1670181/219263064-7b2102fe-8eb0-4a2d-9737-1257806625f7.png)
+    - ブラウザに貼り付けて実行する
+
 以下のメッセージが表示される。
 ![image](https://user-images.githubusercontent.com/1670181/219082212-0a64ec6c-40c2-42d7-9f0f-2871767795d2.png)
 
