@@ -341,7 +341,7 @@ $ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 /handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend/main.py 
     
 - 20〜21行目を、LINEの情報で上書きする。
-    LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF チャネルIDで書き換え
+    LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF を発行した、LINEログインのチャネルIDで書き換え
     CHANNEL_ACCESS_TOKEN = 'xxxxxxxxxx' ← Messaging APIのチャネルアクセストークンで書き換え
 ```
     
@@ -392,16 +392,29 @@ Allow unauthenticated invocations to [backend] (y/N)? Y ←ここだけデフォ
 
 ## LINEアプリで実行
     
-    最初はこの状態
+最初はこの状態
+
+<img src="https://user-images.githubusercontent.com/1670181/219277107-aa584601-a5d4-462e-86d3-57e538de92f4.PNG" height=500>
     
-    「デジタル会員証」を押下するとLINEログインが走り、ポイント画面が表示される。（バーコードとポイントも表示されるハズだがまだ出ず。。）
+ 「デジタル会員証」を押下するとLINEログインが走り、ポイント画面が表示される。（バーコードとポイントも表示されるハズだがまだ出ず。。）
+
+<img src="https://user-images.githubusercontent.com/1670181/219277121-54945897-5d9d-455a-8048-d374fe23e512.PNG" height=500>
+↓
+<img src="https://user-images.githubusercontent.com/1670181/219277175-55f4ee16-5fd1-4612-9d5b-4f31b5e39831.PNG" height=500>
+↓
+<img src="https://user-images.githubusercontent.com/1670181/219277196-3ce5b9ac-66f1-4bb4-aa05-d3036bc5de17.PNG" height=500>
+
+10秒後にプッシュが来て、購入したフローが再生され、会員証を閉じるとレシートが表示される。
     
-    LINEから
+<img src="https://user-images.githubusercontent.com/1670181/219277244-7766e2de-182a-4db5-b3a0-c066d64b121c.PNG" height=500>
+
+    
 
     トラブルシュート：
     - 「Example Domain」というエラーが出た場合、エンドポイントURL が 「https://example.com」のままなんでLINEのLIFFの編集画面で書き換える。
     - 400 Bad Requertの場合、LINEログインが「開発中」のままの可能性あり。公開すべし
     - 10秒以上経ってもプッシュが来ない場合、　key.jsonを書き換えていないかも。ダウンロードしたクレデンシャルで上書きすべし
+    あるいはmain.pyの書き換えができてないかも？
 
 
 
