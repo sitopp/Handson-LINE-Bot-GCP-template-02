@@ -221,7 +221,7 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     
 #### ④ Firebase Hosting へのデプロイ
 
-    ターミナルから以下を実行（ガイダンスより、少しコマンドを変えています）
+- ターミナルから以下を実行（ガイダンスより、少しコマンドを変えています）
 
     ```
     firebase login:ci --no-localhost
@@ -236,9 +236,7 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
         - authorization codeが表示されるので「copy」をクリック
     - ターミナルに戻り、authorization codeを貼り付けてエンター
     
-    
-    続けて、ターミナルから以下を実行
-    
+        
     ```
     $ firebase init
     ```
