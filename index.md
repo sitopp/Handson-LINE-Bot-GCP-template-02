@@ -244,8 +244,10 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     - 上下カーソルで以下の行にあわせてアクティブにする
         - 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　
     - スペースを押下することにより「○」→「◉」になる。（下図参照）
+    
     <img width="889" alt="image" src="[https://user-images.githubusercontent.com/1670181/219260733-9fafa3e7-b585-479d-a9b9-770022864f41.png">
-    - エンター
+    
+    - エンターを押すと次へ進む
     - Please select an option: 上下カーソルで「Use an existing project」を選んでエンター
     - Select a default Firebase project for this directory ：今作ったFirebaseプロジェクトを指定してエンター    
     - What do you want to use as your public directory? public から始まる質問は全てデフォルト値を使うので、空エンター
@@ -270,6 +272,7 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     ```
     $ firebase deploy --only hosting:xxxxx
     ```
+    
         - さいあく、firebase deploy でもOK
         - もしエラーが出たら、npm install をやり直す
 
@@ -283,25 +286,28 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
         - 例）https://hogehoge.web.app/front/
     - LINE 400 Bad Requestが表示されるが、今の所はこれでOK！
 
+    - Firebaseのダッシュボードのガイダンスを、「コンソールに進む」をクリックして閉じる。
+    
+### LINE Developers で LIFF のエンドポイントを編集
 
-### LINE Developers で LIFF のエンドポイントを編集し、公開する
+- LINE ログインチャネルの設定画面を開く
+- LIFF のタブを開く
+- 「エンドポイント URL」に、FirebaseへのHosting URL+/front/のURLを入力して更新。
+![image](https://user-images.githubusercontent.com/1670181/219120341-26d55fe3-564e-451a-aa97-84f7906224f9.png)
 
-    - LINE ログインチャネルの設定画面を開く
-    - LIFF のタブを開く
-    - 「エンドポイント URL」に、FirebaseへのHosting URL+/front/のURLを入力して更新。
-    ![image](https://user-images.githubusercontent.com/1670181/219120341-26d55fe3-564e-451a-aa97-84f7906224f9.png)
-    ![image](https://user-images.githubusercontent.com/1670181/219120395-c4fc27d8-8025-4ba5-aebb-ee29005bdd4e.png)
+### LINE Developers で LIFF の公開
+
+![image](https://user-images.githubusercontent.com/1670181/219120395-c4fc27d8-8025-4ba5-aebb-ee29005bdd4e.png)
 
 ### Firestoreの作成
 
-    Firebaseコンソール https://console.firebase.google.com/ を開く。
-    
-    - Handson-LINE-Bot-GCP-02 を選択
-    - 左ペインの「構築」>「Firestore Database」を選択
-    - 「+コレクションを開始」
-    - コレクションID：「MembersCardUserInfo」
-    - ドキュメントID：自動ID
-    - フィールドは入力せずに、保存
+- Firebaseコンソール https://console.firebase.google.com/ を開く。  
+- Handson-LINE-Bot-GCP-02 を選択
+- 左ペインの「構築」>「Firestore Database」を選択
+- 「+コレクションを開始」
+- コレクションID：「MembersCardUserInfo」
+- ドキュメントID：自動ID
+- フィールドは入力せずに、保存
     
 ### Firebase Admin SDKのクレデンシャルを取得
 
@@ -318,34 +324,34 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 
 ### CloudRun の有効化
 
-GCP のWebコンソールにアクセス https://console.cloud.google.com/
-    
-    - ナビゲーションバー > Cloud Runを開く
-    - 初めての場合、有効化する
+- GCP のWebコンソールにアクセス https://console.cloud.google.com/  
+- ナビゲーションバー > Cloud Runを開く
+- 有効化する
 
 ### Python コードの書き換え
 
 ローカルでエディタを使う。
+
 先ほどGit Cloneしたファイルを開いて編集する。
     
-    ```
-    /handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend/content/key.json 
-    ```
+```
+/handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend/content/key.json 
+    → Firestoreの設定で取得した「Firebase Admin SDKのクレデンシャル」で置き換える。
+```
 
-    上で取得した「Firebase Admin SDKのクレデンシャル」を、上記に置き換える。
 
-    ```
-    backend/main.py 
-    ```
+```
+/handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend/main.py 
     
-    - 20〜21行目を、LINEの情報で上書きする。
-        - LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF チャネルIDで書き換え
-        - CHANNEL_ACCESS_TOKEN = 'xxxxxxxxxx' ← Messaging APIのチャネルアクセストークンで書き換え
-
- ### backendコードのデプロイ
+- 20〜21行目を、LINEの情報で上書きする。
+    LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF チャネルIDで書き換え
+    CHANNEL_ACCESS_TOKEN = 'xxxxxxxxxx' ← Messaging APIのチャネルアクセストークンで書き換え
+```
+    
+### backendコードのデプロイ
    
-ローカルでコンソールを使う。
-        
+ローカルのコンソールから実行する。
+
     ```
     $ gcloud run deploy
     Source code location (/home/sito989/backend): 空エンター
@@ -353,7 +359,9 @@ GCP のWebコンソールにアクセス https://console.cloud.google.com/
     Please enter numeric choice or text value (must exactly match list item):  3 （←[3] asia-northeast1）
     Allow unauthenticated invocations to [backend] (y/N)? Y ここだけデフォと違うので注意！
     ```
+    
     ※ すいません。。 gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行してください。    
+    
     - 正常終了するとURLが発行されるので、ブラウザで実行
         - 例) https://backend-t6innaw72a-an.a.run.app
         - Service Unavailableと表示されるがOK。
@@ -367,18 +375,18 @@ GCP のWebコンソールにアクセス https://console.cloud.google.com/
 
 - エディターでファイルを開いて編集する。
 
-  -  Firebase/public/front/members_card.js 
+  -  /handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front/public/front/members_card.js 
     
     ```    
     const FUNCTION_URL = "https://xxxxxxxxxxxxxxxx"; ← cloud runのアプリのHosting URL 
     const liffId = "xxxxxxxxx-xxxxxxxxx"; ← LINEログインのLIFF ID
     ```
 
-    - ターミナルで、フロントのNode.jsコードをFirebaseにデプロイしなおす。
+    - ターミナルで、フロントのコードをFirebaseにデプロイ
 
     ```
-    cd ~/handson/LINE-Digital-MembersCard-on-GCP/front
-    firebase deploy
+    $ cd ~/handson/LINE-Digital-MembersCard-on-GCP/front
+    $ firebase deploy
     ```
 
 ## LINEアプリで実行
