@@ -273,29 +273,27 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     
     - デプロイが成功すると、 Hosting URLが表示される
     ![image](https://user-images.githubusercontent.com/1670181/219263064-7b2102fe-8eb0-4a2d-9737-1257806625f7.png)
-    - ブラウザに貼り付けて実行する
+    - ブラウザに貼り付けて実行すると、以下のメッセージが表示される。
+    ![image](https://user-images.githubusercontent.com/1670181/219082212-0a64ec6c-40c2-42d7-9f0f-2871767795d2.png)
 
-以下のメッセージが表示される。
-![image](https://user-images.githubusercontent.com/1670181/219082212-0a64ec6c-40c2-42d7-9f0f-2871767795d2.png)
-
-URLの末尾に/front/をつけて実行する。
-https://handson-line-bot-gcp-02-718.web.app/front/
-LINE 400 Bad Requestが表示されるが、今の所はこれでOK。
+    - URLの末尾に/front/をつけて実行する。
+        - 例）https://hogehoge.web.app/front/
+    - LINE 400 Bad Requestが表示されるが、今の所はこれでOK！
 
 
+### LINE Developers で LIFF のエンドポイントを編集し、公開する
 
-### LINE Developers で LIFF のエンドポイントを編集
-
-LINE 側セットアップで行った、LINE ログインチャネルの LIFF に戻り、LIFF の「エンドポイント URL」にFirebaseへのHosting URL+/front/のURLを入力し、更新します。
-    
-![image](https://user-images.githubusercontent.com/1670181/219120341-26d55fe3-564e-451a-aa97-84f7906224f9.png)
-
-![image](https://user-images.githubusercontent.com/1670181/219120395-c4fc27d8-8025-4ba5-aebb-ee29005bdd4e.png)
+    - LINE ログインチャネルの設定画面を開く
+    - LIFF のタブを開く
+    - 「エンドポイント URL」に、FirebaseへのHosting URL+/front/のURLを入力して更新。
+    ![image](https://user-images.githubusercontent.com/1670181/219120341-26d55fe3-564e-451a-aa97-84f7906224f9.png)
+    ![image](https://user-images.githubusercontent.com/1670181/219120395-c4fc27d8-8025-4ba5-aebb-ee29005bdd4e.png)
 
 ### Firestoreの作成
 
-Firebaseコンソール https://console.firebase.google.com/
-    -  Handson-LINE-Bot-GCP-02 を選択
+    Firebaseコンソール https://console.firebase.google.com/ を開く。
+    
+    - Handson-LINE-Bot-GCP-02 を選択
     - 左ペインの「構築」>「Firestore Database」を選択
     - 「+コレクションを開始」
     - コレクションID：「MembersCardUserInfo」
@@ -304,63 +302,62 @@ Firebaseコンソール https://console.firebase.google.com/
     
 ### Firebase Admin SDKのクレデンシャルを取得
 
-- Firebase コンソール画面左上の「プロジェクトの概要」の右横の歯車アイコンをクリックし、「プロジェクトの設定」を選択
-    - 全般 / Cloud Messaging...の並びにある、「サービスアカウント」を選択
-    - そして下の方にある新しい秘密鍵を生成のボタンをクリックし、jsonファイルをダウンロードします。
-    
+    - Firebase コンソール画面左上の「プロジェクトの概要」の右横の歯車アイコンをクリックし、「プロジェクトの設定」を選択
+    - 「サービスアカウント」を選択
+    - 「新しい秘密鍵を生成」のボタンをクリックし、jsonファイルをダウンロード    
     ![image](https://user-images.githubusercontent.com/1670181/219122453-b98b6124-59c1-4ec7-81cc-4f77d817be7c.png)
+    - ファイル名を「key.json」に変更しておく
     
-    
-    参考）https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/ の 「Firebase Admin SDKを取得する」
+    参考） [こちら」(https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/) の 「Firebase Admin SDKを取得する」
 
 
 ## バックエンドの構築
 
 ### CloudRun の有効化
 
-GCP のWebコンソールで開き、有効化
+GCP のWebコンソールにアクセス https://console.cloud.google.com/
+    
+    - ナビゲーションバー > Cloud Runを開く
+    - 初めての場合、有効化する
 
 ### Python コードの書き換え
 
 ローカルでエディタを使う。
 先ほどGit Cloneしたファイルを開いて編集する。
     
-- backend/content/key.json 
-    上で取得した「Firebase Admin SDKのクレデンシャル」をエディタで開き、Ctrl+Aで全文コピーして、backend/content/key.json に上書きペースト
+    ```
+    /handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend/content/key.json 
+    ```
 
-- backend/main.py 
-    20〜21行目を、LINEの情報で上書き
+    上で取得した「Firebase Admin SDKのクレデンシャル」を、上記に置き換える。
 
-```
-LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF チャネルIDで書き換え
-CHANNEL_ACCESS_TOKEN = 'xxxxxxxxxx' ← Messaging APIのチャネルアクセストークンで書き換え
-```
-
+    ```
+    backend/main.py 
+    ```
     
+    - 20〜21行目を、LINEの情報で上書きする。
+        - LIFF_CHANNEL_ID = 'xxxxxxxxxx' ← LIFF チャネルIDで書き換え
+        - CHANNEL_ACCESS_TOKEN = 'xxxxxxxxxx' ← Messaging APIのチャネルアクセストークンで書き換え
 
-    ローカルでコンソールを使う。
+ ### backendコードのデプロイ
+   
+ローカルでコンソールを使う。
+        
+    ```
+    $ gcloud run deploy
+    Source code location (/home/sito989/backend): 空エンター
+    Service name (backend): 空エンター
+    Please enter numeric choice or text value (must exactly match list item):  3 （←[3] asia-northeast1）
+    Allow unauthenticated invocations to [backend] (y/N)? Y ここだけデフォと違うので注意！
+    ```
+    ※ すいません。。 gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行してください。    
+    - 正常終了するとURLが発行されるので、ブラウザで実行
+        - 例) https://backend-t6innaw72a-an.a.run.app
+        - Service Unavailableと表示されるがOK。
+        - このURLは後で使うのでメモっておく。
 
-
-```
-gcloud run deploy
-Source code location (/home/sito989/backend): 空エンター
-Service name (backend): 空エンター
-Please enter numeric choice or text value (must exactly match list item):  3
-（[3] asia-northeast1）
-Allow unauthenticated invocations to [backend] (y/N)? Y ここだけデフォと違う★
-```
-
-    
-    gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行。    
-    
-    
-- URLが発行されたらブラウザで実行してみる
-- 例) https://backend-t6innaw72a-an.a.run.app
-- Service Unavailableと表示されるがOK。
-    - このURLは後で使うのでメモっておく。
-
-- GCPのCloud Runのダッシュボードを開き、一覧の中に作成したアプリが表示されていることを確認
-https://console.cloud.google.com/run?hl=ja
+    - GCPのCloud Runのダッシュボードを開き、一覧の中に作成したアプリが表示されていることを確認
+         - https://console.cloud.google.com/run?hl=ja
 
 
 ## フロントエンドのコード書き換え、デプロイ
