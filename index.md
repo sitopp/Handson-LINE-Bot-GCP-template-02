@@ -222,9 +222,11 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 #### ④ Firebase Hosting へのデプロイ
 
     ターミナルから以下を実行（ガイダンスより、少しコマンドを変えています）
+
     ```
     firebase login:ci --no-localhost
     ```
+    
     ![image](https://user-images.githubusercontent.com/1670181/219260071-0e2af9c3-7777-4ae7-abfa-1eefb538c35a.png)
     URLが表示されるので、コピーしてブラウザで開く。
     - Googleアカウントで認証する
@@ -236,9 +238,11 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     
     
     続けて、ターミナルから以下を実行
+    
     ```
     $ firebase init
     ```
+    
     - 上下カーソルで以下の行にあわせてアクティブにする
         - 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　
     - スペースを押下することにより「○」→「◉」になる。（下図参照）
@@ -252,9 +256,11 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     ![image](https://user-images.githubusercontent.com/1670181/219261682-0e859620-bee4-48c4-bec4-256b035c0b44.png)
 
     - エディタを開く
+    
     ```
     /front/firebase/jsonfirebase.json
     ```
+    
     を編集し、「Site」行をペーストする
     ![image](https://user-images.githubusercontent.com/1670181/219261993-9f01f04c-4d9f-40dc-a953-a4e2261d1ebf.png)
 
@@ -266,7 +272,6 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     ```
     $ firebase deploy --only hosting:xxxxx
     ```
-    を実行
         - さいあく、firebase deploy でもOK
         - もしエラーが出たら、npm install をやり直す
 
