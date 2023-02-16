@@ -52,7 +52,8 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ![image](https://user-images.githubusercontent.com/1670181/219110053-d1af5ce9-e85e-4b5c-9765-2625a3a6bccc.png)
 
-![image](https://user-images.githubusercontent.com/1670181/219110127-2f847adc-8528-4e48-b0f2-27a247aa5593.png)
+![image](https://user-images.githubusercontent.com/1670181/219228272-6620d1bc-9624-4b07-a0aa-2e063fe81220.png)
+※河本さんのWebページの画像のスクショなのでクリックしても拡大しません。すいません(^^;)
 
 ![image](https://user-images.githubusercontent.com/1670181/219110261-5538a061-af74-46f3-8db9-7b1efa550f63.png)
 
