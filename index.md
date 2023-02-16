@@ -1,6 +1,8 @@
 # 1.概要
 
-LIFFを使ったLINE会員証をつくり、Firebaseにホスティングします。
+LIFFを使ったLINE会員証をつくります。
+フロントはFirebaseにホスティングし、バックエンドはコンテナ化してCloudRunにデプロイします。
+DBは俺たちのFirestoreを使います。
 
 
 ### 謝辞
@@ -40,8 +42,8 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 
 ### 注意事項
-若干、Google Cloudの課金が発生する可能性があります。
-終わった後はリソース一式を削除するなど、無料範囲に収まるようにご留意ください。
+- 若干、Google Cloudの課金が発生する可能性があります。
+- 終わった後はリソース一式を削除するなど、無料範囲に収まるようにご留意ください。
 
 
 # 2.実装 
@@ -54,9 +56,9 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 ![image](https://user-images.githubusercontent.com/1670181/219110053-d1af5ce9-e85e-4b5c-9765-2625a3a6bccc.png)
 
-
 ![image](https://user-images.githubusercontent.com/1670181/219228272-6620d1bc-9624-4b07-a0aa-2e063fe81220.png)
-※河本さんのWebページの画像のスクショなのでクリックしても拡大しません。すいません(^^;)
+
+※河本さんのWebページの画像のスクショなのでクリックしても そんなに拡大しません。すいません(^^;)
 
 
 ![image](https://user-images.githubusercontent.com/1670181/219110341-8f3eca35-114f-4a8d-8893-6ac7e5f5b764.png)
@@ -79,20 +81,17 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 <img src="https://user-images.githubusercontent.com/1670181/219229370-979c9d5c-61e2-42d5-a11e-9139034ca86f.png" width=300>
 
-
 ![image](https://user-images.githubusercontent.com/1670181/219110479-c435a891-6560-4126-a9f9-2d95f46c734b.png)
 
 ### LINE ログインチャネルの作成
 
-次に、デジタル会員証を表示できるよう、LINE ログインチャネルと LIFF を作成していきましょう。
-
-LINE Front-end Framework (LIFF) は、LINE が提供するウェブアプリのプラットフォームです。LINE ミニアプリにも関連する技術でもあります。詳細は下記の URL 先をご覧ください。
-
-- https://developers.line.biz/ja/docs/liff/overview/
-- https://www.youtube.com/watch?v=QD_M52ATbb8
+- 次に、デジタル会員証を表示できるよう、LINE ログインチャネルと LIFF を作成していきましょう。
+- LINE Front-end Framework (LIFF) は、LINE が提供するウェブアプリのプラットフォームです。LINE ミニアプリにも関連する技術でもあります。詳細は下記の URL 先をご覧ください。
+    - https://developers.line.biz/ja/docs/liff/overview/
+    - https://www.youtube.com/watch?v=QD_M52ATbb8
 
 
-LINE Developerの「DEV」プロバイダーのチャネル一覧で、「新規チャネル作成」をクリックします。
+- LINE Developerの「DEV」プロバイダーのチャネル一覧で、「新規チャネル作成」をクリックします。
 
 <img src="https://user-images.githubusercontent.com/1670181/219230853-49098fd5-518f-4ef3-9cd8-c7bb584a9dce.png" width=500>
 
@@ -143,10 +142,10 @@ LIFF が作成できました。
 ターミナルを開き、以下を実行
 
 ```
-cd (任意のディレクトリに移動)
-mkdir handson
-cd handson
-git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
+$ cd (任意のディレクトリに移動)
+$ mkdir handson
+$ cd handson
+$ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 ```
 
 - あとでコマンド実行するのでそのまま開いておく
@@ -154,11 +153,8 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 ### GCP プロジェクト作成
 
 - https://console.cloud.google.com/ 
-
 - ヘッダー部分のプロジェクト選択肢 > 新しいプロジェクト 
-
 - プロジェクト名： Handson-LINE-Bot-GCP-02 を作成
-
 - 左上のケバブ じゃなくて ナビゲーションメニュー > Cloud の概要 > ダッシュボード > プロジェクトを選択 > プロジェクト ID を参照し、後で使うのでメモっておく。
 
 
@@ -169,9 +165,7 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 <img src="https://user-images.githubusercontent.com/1670181/219256747-7f6dd3ae-d364-4273-892e-3c6c4d5f8a0b.png" width=500>
 
 - プロジェクトを追加 > プロジェクト名入力欄をクリックして 「Handson-LINE-Bot-GCP-02」 を選択
-
 - 「自身の取引、ビジネス、仕事、または職業のみを目的として Firebase を利用することを正式に認めます。」にチェック > 続行
-
 - 「Firebase の料金プランの確認 Blaze 従量制」 > プランを確認
 
 ### Firebase アプリの登録
@@ -194,7 +188,9 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 
 - 「<script> タグを使用する」を選択
     - ドバッと<script> タグが表示される
+
 - 普段使っているエディターで、以下のファイルを開く
+    
     ```
     先ほどgit cloneした、
     handson/LINE-Digital-MembersCard-on-GCP/front/public/front/index.html
@@ -211,12 +207,12 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 - ターミナルに戻り、以下のコマンドを実行する
 
     ```
-    pwd ←現在位置を確認。~/handsonディレクトリにいればOK。居なければ cd ~/handson などで移動
-    cd LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front
-    npm install
-    npm install firebase
-    npm install -g firebase-tools
-    npm install firebase-admin
+    $ pwd ←現在位置を確認。~/handsonディレクトリにいればOK。居なければ cd ~/handson などで移動
+    $ cd LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front
+    $ npm install
+    $ npm install firebase
+    $ npm install -g firebase-tools
+    $ npm install firebase-admin
     ```
     
 #### ④ Firebase Hosting へのデプロイ
@@ -224,7 +220,7 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 - ターミナルから以下を実行（ガイダンスより、少しコマンドを変えています）
 
     ```
-    firebase login:ci --no-localhost
+    $ firebase login:ci --no-localhost
     ```
     
     ![image](https://user-images.githubusercontent.com/1670181/219260071-0e2af9c3-7777-4ae7-abfa-1eefb538c35a.png)
@@ -245,7 +241,7 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
         - 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　
     - スペースを押下することにより「○」→「◉」になる。（下図参照）
     
-    <img width="889" alt="image" src="[https://user-images.githubusercontent.com/1670181/219260733-9fafa3e7-b585-479d-a9b9-770022864f41.png">
+    <img width="889" alt="image" src="https://user-images.githubusercontent.com/1670181/219260733-9fafa3e7-b585-479d-a9b9-770022864f41.png">
     
     - エンターを押すと次へ進む
     - Please select an option: 上下カーソルで「Use an existing project」を選んでエンター
@@ -352,37 +348,41 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
    
 ローカルのコンソールから実行する。
 
-    ```
-    $ gcloud run deploy
-    Source code location (/home/sito989/backend): 空エンター
-    Service name (backend): 空エンター
-    Please enter numeric choice or text value (must exactly match list item):  3 （←[3] asia-northeast1）
-    Allow unauthenticated invocations to [backend] (y/N)? Y ここだけデフォと違うので注意！
-    ```
+```
+$ cd ~/handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend
+$ gcloud run deploy
+Source code location (/xxxxxx/xxx/x/x/backend): 空エンター
+Service name (backend): 空エンター
+Please enter numeric choice or text value (must exactly match list item):  3 （←[3] asia-northeast1）
+Allow unauthenticated invocations to [backend] (y/N)? Y ←ここだけデフォと違うので注意！ なお聞かれない時もある
     
-    ※ すいません。。 gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行してください。    
+```
     
-    - 正常終了するとURLが発行されるので、ブラウザで実行
+※ すいません。。 gcloud をインストールしてない方は「gcloud run deploy」の段階でエラーが出るので、[こちら](https://cloud.google.com/sdk/docs/install?hl=ja)を参照して、gcloudコマンドラインツールをインストールし、再度実行してください。    
+
+
+    - 正常終了すると「Service URL」が発行されるので、ブラウザで実行
         - 例) https://backend-t6innaw72a-an.a.run.app
         - Service Unavailableと表示されるがOK。
         - このURLは後で使うのでメモっておく。
 
     - GCPのCloud Runのダッシュボードを開き、一覧の中に作成したアプリが表示されていることを確認
-         - https://console.cloud.google.com/run?hl=ja
+        - https://console.cloud.google.com/run?hl=ja
+        - backend > セキュリティ > 「未認証の呼び出しを許可」を選択していることを確認。もし違ったら変更する。
+    
 
-
+    
 ## フロントエンドのコード書き換え、デプロイ
 
 - エディターでファイルを開いて編集する。
-
-  -  /handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front/public/front/members_card.js 
+    - ~/handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front/public/front/members_card.js 
     
     ```    
-    const FUNCTION_URL = "https://xxxxxxxxxxxxxxxx"; ← cloud runのアプリのHosting URL 
+    const FUNCTION_URL = "https://xxxxxxxxxxxxxxxx"; ← cloud runのアプリのService URL 
     const liffId = "xxxxxxxxx-xxxxxxxxx"; ← LINEログインのLIFF ID
     ```
 
-    - ターミナルで、フロントのコードをFirebaseにデプロイ
+- ターミナルで、フロントのコードをFirebaseにデプロイ
 
     ```
     $ cd ~/handson/LINE-Digital-MembersCard-on-GCP/front
@@ -390,6 +390,8 @@ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     ```
 
 ## LINEアプリで実行
+    
+    最初はこの状態
 
 画面が表示されたらOK!
 
