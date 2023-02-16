@@ -309,9 +309,9 @@ $ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
 
     - Firebase コンソール画面左上の「プロジェクトの概要」の右横の歯車アイコンをクリックし、「プロジェクトの設定」を選択
     - 「サービスアカウント」を選択
-    - 「新しい秘密鍵を生成」のボタンをクリックし、jsonファイルをダウンロード    
+    - Pythonを選び、「新しい秘密鍵を生成」のボタンをクリックし、jsonファイルをダウンロード    
     ![image](https://user-images.githubusercontent.com/1670181/219122453-b98b6124-59c1-4ec7-81cc-4f77d817be7c.png)
-    - ファイル名を「key.json」に変更しておく
+    
     
     参考） [こちら」(https://rayt-log.com/%E3%80%90firebase%E3%80%91python%E3%81%A7cloud-firestore%E3%81%AB%E5%80%A4%E3%82%92%E8%BF%BD%E5%8A%A0%E3%83%BB%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%EF%BC%81/) の 「Firebase Admin SDKを取得する」
 
@@ -332,7 +332,8 @@ $ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     
 ```
 /handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/backend/content/key.json 
-    → Firestoreの設定で取得した「Firebase Admin SDKのクレデンシャル」で置き換える。
+    → Firestoreの設定で取得した「Firebase Admin SDKのクレデンシャル」のjsonファイルをエディタで開き、中身を全行コピペして、保存。
+    ※ファイルの上書きだと、日付が古くてデプロイしても反映されない可能性あり
 ```
 
 
@@ -392,8 +393,15 @@ Allow unauthenticated invocations to [backend] (y/N)? Y ←ここだけデフォ
 ## LINEアプリで実行
     
     最初はこの状態
+    
+    「デジタル会員証」を押下するとLINEログインが走り、ポイント画面が表示される。（バーコードとポイントも表示されるハズだがまだ出ず。。）
+    
+    LINEから
 
-画面が表示されたらOK!
+    トラブルシュート：
+    - 「Example Domain」というエラーが出た場合、エンドポイントURL が 「https://example.com」のままなんでLINEのLIFFの編集画面で書き換える。
+    - 400 Bad Requertの場合、LINEログインが「開発中」のままの可能性あり。公開すべし
+    - 10秒以上経ってもプッシュが来ない場合、　key.jsonを書き換えていないかも。ダウンロードしたクレデンシャルで上書きすべし
 
 
 
