@@ -50,12 +50,14 @@ LIFFを使ったLINE会員証をつくり、Firebaseにホスティングしま�
 
 [LINE Developers](https://developers.line.me/ja/services/messaging-api/) にアクセスし「今すぐはじめよう」のボタンをクリック
 
+![image](https://user-images.githubusercontent.com/1670181/219110261-5538a061-af74-46f3-8db9-7b1efa550f63.png)
+
 ![image](https://user-images.githubusercontent.com/1670181/219110053-d1af5ce9-e85e-4b5c-9765-2625a3a6bccc.png)
+
 
 ![image](https://user-images.githubusercontent.com/1670181/219228272-6620d1bc-9624-4b07-a0aa-2e063fe81220.png)
 ※河本さんのWebページの画像のスクショなのでクリックしても拡大しません。すいません(^^;)
 
-![image](https://user-images.githubusercontent.com/1670181/219110261-5538a061-af74-46f3-8db9-7b1efa550f63.png)
 
 ![image](https://user-images.githubusercontent.com/1670181/219110341-8f3eca35-114f-4a8d-8893-6ac7e5f5b764.png)
 
