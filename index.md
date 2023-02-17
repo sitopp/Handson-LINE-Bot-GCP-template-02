@@ -237,6 +237,7 @@ $ git clone https://github.com/sitopp/LINE-Digital-MembersCard-on-GCP.git
     $ firebase init
     ```
     ※プロジェクトが不明というエラーが出たらプロジェクト名を明示的に指定すると通る
+    --firebaseproject プロジェクト名
     
     - 上下カーソルで以下の行にあわせてアクティブにする
         - 「Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys」　
