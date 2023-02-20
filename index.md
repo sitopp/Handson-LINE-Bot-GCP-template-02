@@ -375,7 +375,7 @@ Allow unauthenticated invocations to [backend] (y/N)? Y ←ここだけデフォ
     
 
     
-## フロントエンドのコード書き換え、デプロイ
+### フロントエンドのコード書き換え、デプロイ
 
 - エディターでファイルを開いて編集する。
     - ~/handson/LINE-Digital-MembersCard-on-GCP/line-api-use-case-MembersCard/front/public/front/members_card.js 
@@ -392,7 +392,7 @@ Allow unauthenticated invocations to [backend] (y/N)? Y ←ここだけデフォ
     $ firebase deploy
     ```
 
-## LINEアプリで実行
+### LINEアプリで実行
     
 最初はこの状態
 
@@ -419,5 +419,29 @@ Allow unauthenticated invocations to [backend] (y/N)? Y ←ここだけデフォ
     あるいはmain.pyの書き換えができてないかも？
 
 
+## 後片付け
 
+    費用が発生しないように、後片付けをしていきます。
+    
+    
+### Cloud Runの削除
 
+https://console.cloud.google.com/run?hl=ja
+ダッシュボードから"backend"という名前のサービスを削除しましょう。
+↓
+![image](https://user-images.githubusercontent.com/1670181/220152326-5d01f46e-ff64-4ab3-af00-becaf3b9bcf4.png)
+
+### Firebase プロジェクトの削除
+
+Firestoreデータベースとアプリの両方を削除します。
+
+- Firebase コンソール画面左上の「プロジェクトの概要」の右横の歯車アイコンをクリックし、「プロジェクトの設定」を選択
+- 一番下までスクロールし、「プロジェクトを削除」をクリック
+↓
+![image](https://user-images.githubusercontent.com/1670181/220154913-54c51394-9487-44aa-848c-84c4e573f190.png)
+
+- 全てにチェックを入れて、「プロジェクトを削除」をクリック
+    
+以上で終了です！
+    
+お疲れ様でした！
